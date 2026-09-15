@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Un Mes de Nosotros</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #faf6f1 0%, #f5f0eb 50%, #f0e8e0 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        .floating-hearts {
+            position: relative;
+            height: 60px;
+            margin-bottom: 20px;
+        }
+        
+        .heart {
+            position: absolute;
+            color: #d4a5a5;
+            font-size: 24px;
+            animation: float 3s ease-in-out infinite;
+            opacity: 0.6;
+        }
+        
+        .heart:nth-child(1) {
+            left: 20%;
+            animation-delay: 0s;
+        }
+        
+        .heart:nth-child(2) {
+            left: 50%;
+            animation-delay: 1s;
+            font-size: 18px;
+        }
+        
+        .heart:nth-child(3) {
+            right: 20%;
+            animation-delay: 2s;
+            font-size: 20px;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+                opacity: 0.4;
+            }
+            50% {
+                transform: translateY(-20px);
+                opacity: 0.8;
+            }
+        }
+        
+        h1 {
+            font-size: 48px;
+            color: #8b6f6f;
+            margin-bottom: 10px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: #a89898;
+            font-weight: 300;
+            font-style: italic;
+        }
+        
+        .date-badge {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: rgba(212, 165, 165, 0.15);
+            border: 1px solid rgba(212, 165, 165, 0.3);
+            border-radius: 30px;
+            font-size: 16px;
+            color: #8b6f6f;
+            font-weight: 500;
+        }
+        
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 165, 165, 0.2);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(212, 165, 165, 0.15);
+        }
+        
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+        
+        .card h2 {
+            font-size: 24px;
+            color: #8b6f6f;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+        
+        .card p {
+            color: #9b8a8a;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+        
+        /* Gallery Section */
+        .gallery-section {
+            margin: 60px 0;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+        
+        .gallery-title {
+            text-align: center;
+            font-size: 32px;
+            color: #8b6f6f;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+        
+        .gallery-subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: #a89898;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            aspect-ratio: 1;
+            background: rgba(212, 165, 165, 0.1);
+            border: 1px solid rgba(212, 165, 165, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: rgba(212, 165, 165, 0.08);
+            color: #a89898;
+        }
+        
+        .gallery-placeholder-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+        
+        .gallery-placeholder-text {
+            font-size: 13px;
+            text-align: center;
+            padding: 0 16px;
+        }
+        
+        .upload-section {
+            background: rgba(212, 165, 165, 0.08);
+            border: 2px dashed rgba(212, 165, 165, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-section:hover {
+            background: rgba(212, 165, 165, 0.12);
+            border-color: rgba(212, 165, 165, 0.5);
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.7;
+        }
+        
+        .upload-text {
+            font-size: 16px;
+            color: #8b6f6f;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .upload-subtext {
+            font-size: 14px;
+            color: #a89898;
+        }
+        
+        #photoInput {
+            display: none;
+        }
+        
+        /* Songs Section */
+        .songs-section {
+            margin: 60px 0;
+            animation: fadeInUp 0.8s ease-out 0.35s both;
+        }
+        
+        .songs-title {
+            text-align: center;
+            font-size: 32px;
+            color: #8b6f6f;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+        
+        .songs-subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: #a89898;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+        
+        .songs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .song-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 165, 165, 0.25);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .song-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 165, 165, 0.1), transparent);
+            transition: left 0.5s ease;
+            z-index: 0;
+        }
+        
+        .song-card:hover::before {
+            left: 100%;
+        }
+        
+        .song-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(212, 165, 165, 0.2);
+            border-color: rgba(212, 165, 165, 0.4);
+        }
+        
+        .song-info {
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .song-title {
+            font-size: 22px;
+            color: #8b6f6f;
+            font-weight: 500;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+        
+        .song-artist {
+            font-size: 16px;
+            color: #a89898;
+            font-weight: 500;
+        }
+        
+        .song-message {
+            font-size: 14px;
+            color: #9b8a8a;
+            line-height: 1.6;
+            margin-bottom: 28px;
+            padding: 12px;
+            background: rgba(212, 165, 165, 0.06);
+            border-left: 3px solid rgba(212, 165, 165, 0.3);
+            border-radius: 4px;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .play-button-container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(212, 165, 165, 0.3), rgba(212, 165, 165, 0.2));
+            border: 3px solid rgba(212, 165, 165, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 32px;
+            color: #8b6f6f;
+            box-shadow: 0 4px 16px rgba(212, 165, 165, 0.2);
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .play-button:hover {
+            background: linear-gradient(135deg, rgba(212, 165, 165, 0.5), rgba(212, 165, 165, 0.35));
+            border-color: rgba(212, 165, 165, 0.8);
+            transform: scale(1.15);
+            box-shadow: 0 8px 28px rgba(212, 165, 165, 0.35);
+        }
+        
+        .play-button:active {
+            transform: scale(0.95);
+        }
+        
+        .spotify-link {
+            font-size: 12px;
+            color: #1DB954;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-top: 12px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Timeline Section */
+        .timeline {
+            margin: 60px 0;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+        
+        .timeline-title {
+            text-align: center;
+            font-size: 32px;
+            color: #8b6f6f;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 0;
+            width: 12px;
+            height: 12px;
+            background: #d4a5a5;
+            border-radius: 50%;
+            top: 6px;
+            box-shadow: 0 0 0 4px rgba(212, 165, 165, 0.15);
+        }
+        
+        .timeline-content {
+            flex: 1;
+        }
+        
+        .timeline-date {
+            font-size: 14px;
+            color: #b8a8a8;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-text {
+            font-size: 16px;
+            color: #8b6f6f;
+            line-height: 1.7;
+        }
+        
+        /* Message Section */
+        .message-section {
+            background: rgba(212, 165, 165, 0.08);
+            border-radius: 12px;
+            padding: 50px 40px;
+            text-align: center;
+            margin: 60px 0;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+            border: 1px solid rgba(212, 165, 165, 0.15);
+        }
+        
+        .message-section h3 {
+            font-size: 22px;
+            color: #8b6f6f;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+        
+        .message-section p {
+            font-size: 17px;
+            color: #9b8a8a;
+            line-height: 2;
+            max-width: 600px;
+            margin: 0 auto;
+            font-style: italic;
+            font-weight: 300;
+        }
+        
+        /* Counter Section */
+        .counter {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+        
+        .counter-item {
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(212, 165, 165, 0.2);
+            border-radius: 12px;
+        }
+        
+        .counter-number {
+            font-size: 42px;
+            color: #d4a5a5;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+        
+        .counter-label {
+            font-size: 14px;
+            color: #a89898;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid rgba(212, 165, 165, 0.15);
+            margin-top: 60px;
+            animation: fadeInUp 0.8s ease-out 1s both;
+        }
+        
+        .footer p {
+            color: #a89898;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        
+        .footer-hearts {
+            font-size: 24px;
+            letter-spacing: 8px;
+            margin: 20px 0;
+            opacity: 0.5;
+        }
+        
+        .luis-miguel-credit {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(212, 165, 165, 0.15);
+            font-size: 14px;
+            color: #8b6f6f;
+            font-weight: 500;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Decorative elements */
+        .decoration {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.1;
+        }
+        
+        .deco-top {
+            top: 0;
+            right: 0;
+            font-size: 200px;
+        }
+        
+        .deco-bottom {
+            bottom: 0;
+            left: 0;
+            font-size: 200px;
+        }
+        
+        /* Modal para ver foto grande */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            position: relative;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 90%;
+            max-height: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 8px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -35px;
+            right: 0;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .modal-close:hover {
+            transform: scale(1.2);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="decoration deco-top">✨</div>
+    <div class="decoration deco-bottom">💫</div>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="floating-hearts">
+                <div class="heart">♡</div>
+                <div class="heart">♡</div>
+                <div class="heart">♡</div>
+            </div>
+            <h1>Un Mes de Nosotros</h1>
+            <p class="subtitle">Celebrando el primer mes de una historia hermosa</p>
+            <div class="date-badge">Hace 30 días comenzó todo...</div>
+        </div>
+        
+        <!-- Cards Section -->
+        <div class="content-grid">
+            <div class="card">
+                <div class="card-icon">💕</div>
+                <h2>El Día Que Todo Cambió</h2>
+                <p>Fue un momento especial cuando dijiste "sí". Desde ese instante, cada día contigo es un regalo que guardo en mi corazón. Tu sonrisa ilumina mis días oscuros y tu presencia llena cada rincón de mi vida con una calidez que no sabía que existía.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">⭐</div>
+                <h2>En Estos 30 Días</h2>
+                <p>Hemos compartido risas que resonaron en las noches, momentos silenciosos que hablan más que mil palabras, y sueños que construimos juntos. Cada detalle de ti—desde tu forma de reír hasta tu forma de pensar—se ha convertido en mi favorito.</p>
+            </div>
+        </div>
+        
+        <!-- Gallery Section -->
+        <div class="gallery-section">
+            <h3 class="gallery-title">Nuestros Momentos en Fotos</h3>
+            <p class="gallery-subtitle">Los recuerdos más hermosos que atesoramos juntos</p>
+            
+            <div class="gallery-grid" id="galleryGrid">
+                <div class="gallery-item" onclick="document.getElementById('photoInput').click()">
+                    <div class="gallery-placeholder">
+                        <div class="gallery-placeholder-icon">📷</div>
+                        <div class="gallery-placeholder-text">Toca para agregar foto</div>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="document.getElementById('photoInput').click()">
+                    <div class="gallery-placeholder">
+                        <div class="gallery-placeholder-icon">📷</div>
+                        <div class="gallery-placeholder-text">Toca para agregar foto</div>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="document.getElementById('photoInput').click()">
+                    <div class="gallery-placeholder">
+                        <div class="gallery-placeholder-icon">📷</div>
+                        <div class="gallery-placeholder-text">Toca para agregar foto</div>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="document.getElementById('photoInput').click()">
+                    <div class="gallery-placeholder">
+                        <div class="gallery-placeholder-icon">📷</div>
+                        <div class="gallery-placeholder-text">Toca para agregar foto</div>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="document.getElementById('photoInput').click()">
+                    <div class="gallery-placeholder">
+                        <div class="gallery-placeholder-icon">📷</div>
+                        <div class="gallery-placeholder-text">Toca para agregar foto</div>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="document.getElementById('photoInput').click()">
+                    <div class="gallery-placeholder">
+                        <div class="gallery-placeholder-icon">📷</div>
+                        <div class="gallery-placeholder-text">Toca para agregar foto</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="upload-section" onclick="document.getElementById('photoInput').click()">
+                <div class="upload-icon">+</div>
+                <div class="upload-text">Agregar más fotos</div>
+                <div class="upload-subtext">Arrastra o haz clic para seleccionar imágenes</div>
+            </div>
+            
+            <input type="file" id="photoInput" accept="image/*" multiple>
+        </div>
+        
+        <!-- Songs Section -->
+        <div class="songs-section">
+            <h3 class="songs-title">🎵 Nuestras Canciones</h3>
+            <p class="songs-subtitle">Las melodías que cantan nuestra historia de amor</p>
+            
+            <div class="songs-container">
+                <!-- Canción 1 -->
+                <div class="song-card">
+                    <div class="song-info">
+                        <div class="song-title">Somos Novios</div>
+                        <div class="song-artist">Luis Miguel</div>
+                    </div>
+                    <div class="song-message">"La canción perfecta que describe lo que somos, lo que sentimos y lo que promete nuestro amor."</div>
+                    <a href="https://open.spotify.com/intl-es/track/4dr2h9rnEW6OBxm8LvRBW2" target="_blank" class="play-button">▶</a>
+                    <div class="spotify-link">Escuchar en Spotify</div>
+                </div>
+                
+                <!-- Canción 2 -->
+                <div class="song-card">
+                    <div class="song-info">
+                        <div class="song-title">Nuestro Sueño</div>
+                        <div class="song-artist">Grupo Niche</div>
+                    </div>
+                    <div class="song-message">"Nuestra melodía de ensueño, la que habla del sueño que compartimos juntos para siempre."</div>
+                    <a href="https://open.spotify.com/intl-es/track/0pjDbNEJwGmYAauXHM9kgj" target="_blank" class="play-button">▶</a>
+                    <div class="spotify-link">Escuchar en Spotify</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Timeline -->
+        <div class="timeline">
+            <h3 class="timeline-title">Nuestros Momentos Especiales</h3>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Día 1</div>
+                    <div class="timeline-text">El inicio de una hermosa historia, cuando decidimos ser uno para el otro.</div>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Primera Semana</div>
+                    <div class="timeline-text">Descubrimos que éramos exactamente lo que el otro necesitaba.</div>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Primera Quincena</div>
+                    <div class="timeline-text">Los detalles pequeños se convirtieron en momentos grandes.</div>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Día 30</div>
+                    <div class="timeline-text">Miramos atrás y sonreímos, porque lo mejor aún está por venir.</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Message Section -->
+        <div class="message-section">
+            <h3>Un Pensamiento Para Ti</h3>
+            <p>No sé qué ofrece el futuro, pero sé esto: quiero enfrentarlo a tu lado. En estos treinta días, has dejado una huella profunda en mi corazón. Gracias por cada risa, cada abrazo, cada momento que compartimos. Eres mi favorita parte del día.</p>
+        </div>
+        
+        <!-- Counter -->
+        <div class="counter">
+            <div class="counter-item">
+                <div class="counter-number">30</div>
+                <div class="counter-label">Días Juntos</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-number">∞</div>
+                <div class="counter-label">Momentos Especiales</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-number">1</div>
+                <div class="counter-label">Corazón Unido</div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-hearts">♡ ♡ ♡</div>
+            <p>Con todo mi amor,</p>
+            <p style="font-size: 16px; font-weight: 500; color: #8b6f6f; margin-top: 10px;">Quererte no fue una decisión, fue un destino.</p>
+            <div class="luis-miguel-credit">
+                🎼 Inspirados por el romanticismo de Luis Miguel y Grupo Niche 🌹
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para ver foto grande -->
+    <div class="modal" id="photoModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <img id="modalImage" src="" alt="Foto ampliada">
+        </div>
+    </div>
+    
+    <script>
+        const photoInput = document.getElementById('photoInput');
+        const galleryGrid = document.getElementById('galleryGrid');
+        const photoModal = document.getElementById('photoModal');
+        const modalImage = document.getElementById('modalImage');
+        
+        // Manejar selección de archivos
+        photoInput.addEventListener('change', function(e) {
+            handleFiles(this.files);
+            this.value = '';
+        });
+        
+        // Drag and drop
+        document.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+        
+        document.addEventListener('drop', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const files = e.dataTransfer.files;
+            handleFiles(files);
+        });
+        
+        function handleFiles(files) {
+            for (let file of files) {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        addPhotoToGallery(e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+        
+        function addPhotoToGallery(imageSrc) {
+            const placeholders = galleryGrid.querySelectorAll('.gallery-placeholder');
+            
+            for (let placeholder of placeholders) {
+                if (!placeholder.parentElement.querySelector('img')) {
+                    const item = placeholder.parentElement;
+                    item.innerHTML = '';
+                    
+                    const img = document.createElement('img');
+                    img.src = imageSrc;
+                    img.onclick = function(e) {
+                        e.stopPropagation();
+                        openModal(imageSrc);
+                    };
+                    
+                    item.appendChild(img);
+                    item.style.cursor = 'pointer';
+                    break;
+                }
+            }
+        }
+        
+        function openModal(imageSrc) {
+            modalImage.src = imageSrc;
+            photoModal.classList.add('active');
+        }
+        
+        function closeModal() {
+            photoModal.classList.remove('active');
+        }
+        
+        photoModal.onclick = function(e) {
+            if (e.target === photoModal) {
+                closeModal();
+            }
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
